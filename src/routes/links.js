@@ -23,4 +23,10 @@ router.post('/add', async (req, res) => {
     res.send('received');
 });
 
+router.get('/', async (req, res) => {
+    const links = await pool.query('SELECT * FROM links')
+    //Renderiza la página links/list con el objeto links
+    res.render('links/list', {links});
+});  
+
 module.exports = router;
