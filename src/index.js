@@ -17,6 +17,7 @@ app.set('port', process.env.PORT || 4000);
 app.set('views', path.join(__dirname, 'views'));
     //Se configura engine de plantillas handlebars
 app.engine('.hbs', engine({
+    //El defaultLayout es el layout que se usará por defecto en todas las páginas llamado main
     defaultLayout: 'main',
     layoutsDir: path.join(app.get('views'), 'layouts'),
     partialsDir: path.join(app.get('views'), 'partials'),

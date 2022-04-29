@@ -1,0 +1,39 @@
+--SE CREA LA BASE DE DATOS
+CREATE DATABASE database_links;
+--SE USA LA BASE DE DATOS
+USE database_links;
+--SE CREA LA TABLA USUARIOS
+CREATE TABLE users (
+    id INT(11) NOT NULL,
+    username VARCHAR(16) NOT NULL,
+    password VARCHAR(60) NOT NULL,
+    fullname VARCHAR(100) NOT NULL
+);
+--SE MODIFICA LA TABLA USUARIOS AGREGANDO UNA LLAVES PRIMARIA A ID
+ALTER TABLE users
+    ADD PRIMARY KEY (id);
+--SE MODIFICA LA TABLA USUARIOS AGREGANDO UN AUTOINCREMENTO A ID
+ALTER TABLE users
+    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--SE DESCRIPCIONA LA TABLA USUARIOS
+DESCRIBE users;
+
+--SE CREA LA TABLA LINKS
+CREATE TABLE links (
+    id INT(11) NOT NULL,
+    title VARCHAR(150) NOT NULL,
+    url VARCHAR(255) NOT NULL,
+    description TEXT,
+    user_id INT(11),
+    --Campo creado para guardar la fecha de creacion del link de forma automatica
+    create_at timestamp NOT NULL DEFAULT current_timestamp,
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+ALTER TABLE links
+    ADD PRIMARY KEY (id);
+
+ALTER TABLE links
+    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+DESCRIBE links;
