@@ -7,6 +7,13 @@ const { engine } = require('express-handlebars');
 //Se importa el modulo partial para crear los partials
 const path = require('path');
 //Se importa el modulo connect flash para mandar mensajes en vistas
+const flash = require('connect-flash');
+//Se importa el modulo session para poder utilizar connect flash debido a que este necesita una sesión
+const session = require('express-session');
+//Se importa el modulo mysqlexpress sesión para poder conectar la bd a la sesión
+const MySQLStore = require('express-mysql-session');
+//Importo keys que tiene la conexión con la BD para usar con la sesión 
+const {database} = require('./keys');
 
 // Initialize the app
 const app = express();
@@ -28,20 +35,30 @@ app.engine('.hbs', engine({
 
 app.set('view engine', '.hbs');
 
-//middlewares
-    //funciones que se ejecutan cuando se hace una petición al servidor
-
+//middlewares //funciones que se ejecutan cuando se hace una petición al servidor
+    //Se usa la sesión para usar el modulo flash en memoria
+app.use(session({
+    secret: 'sessionOssExample',
+    resave: false,
+    saveUninitialized : false,
+    store: new MySQLStore(database)
+}));
+    //Se usa flash el modulo para mostrar mensajes en vistas
+app.use(flash());
     //Se usa morgan para mostrar los logs en consola con el parámetro dev
 app.use(morgan('dev'));
     //Se importa el modulo url-encoded para usar datos de formularios
 app.use(express.urlencoded({extended: false}));
     //Se importa el modulo json para usar datos de formularios
 app.use(express.json());
+  
 
 // Variables globales
     // Variables que toda la app va a tener y se usan en todas las rutas
     //esta función toma la información del usuario y continua con la ejecución
-    app.use((req, res, next) => {
+app.use((req, res, next) => {
+    //Almacena el mensaje success en una variable global llamada success
+    app.locals.success = req.flash('success')    
     next();
 });
 
