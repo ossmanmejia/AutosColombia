@@ -1,4 +1,5 @@
 const express = require('express');
+const res = require('express/lib/response');
 const router = express.Router();
 
 //importa conexión a la base de datos a través de pool
@@ -20,7 +21,7 @@ router.post('/add', async (req, res) => {
         description
     };
     await pool.query('INSERT INTO links set ?', [newLink]);
-    res.send('received');
+    res.redirect('/links');
 });
 
 router.get('/', async (req, res) => {
@@ -28,5 +29,32 @@ router.get('/', async (req, res) => {
     //Renderiza la página links/list con el objeto links
     res.render('links/list', {links});
 });  
+
+//Ruta de eliminar link
+router.get('/delete/:id', async (req, res) => {
+    const { id } = req.params;
+    await pool.query('DELETE FROM links WHERE ID = ?', [id]);
+    res.redirect('/links');
+});
+
+//Ruta de editar link
+router.get('/edit/:id', async(req,res) =>{
+    const { id } = req.params;
+    const links = await pool.query('SELECT * FROM links WHERE id = ?', [id]);
+    res.render('links/edit', {link: links[0]});  
+});
+
+//Creo una ruta para editar cada link
+router.post('/edit/:id', async (req, res) => {
+    const { id } = req.params;
+    const { title, description, url } = req.body;
+    const newLink = {
+        title,
+        description,
+        url
+    };
+    await pool.query('UPDATE links set ? WHERE id = ?', [newLink, id]); 
+    res.redirect('/links');
+});
 
 module.exports = router;

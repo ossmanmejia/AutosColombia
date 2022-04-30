@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const { engine } = require('express-handlebars');
 //Se importa el modulo partial para crear los partials
 const path = require('path');
+//Se importa el modulo connect flash para mandar mensajes en vistas
 
 // Initialize the app
 const app = express();
