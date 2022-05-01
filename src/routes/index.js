@@ -6,7 +6,7 @@ const express = require('express');
 const router = express.Router();
 //Al router le define una ruta inicial '/'
 router.get('/', (req, res) => {
-    res.send('Hola mundo'); 
+    res.render('index');
 });
 
 // Exporta el router

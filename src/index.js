@@ -14,9 +14,13 @@ const session = require('express-session');
 const MySQLStore = require('express-mysql-session');
 //Importo keys que tiene la conexión con la BD para usar con la sesión 
 const {database} = require('./keys');
+//Importo el modulo passport para poder utilizarlo
+const passport = require('passport');
 
 // Initialize the app
 const app = express();
+// Inicializa passport
+require('./lib/passport');
 
 //configuración de la app
 
@@ -51,6 +55,10 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
     //Se importa el modulo json para usar datos de formularios
 app.use(express.json());
+    //Se inicializa passport para poder usarlo
+app.use(passport.initialize());
+    //Se inicia session para poder usar passport
+app.use(passport.session());
   
 
 // Variables globales
@@ -58,7 +66,9 @@ app.use(express.json());
     //esta función toma la información del usuario y continua con la ejecución
 app.use((req, res, next) => {
     //Almacena el mensaje success en una variable global llamada success
-    app.locals.success = req.flash('success')    
+    app.locals.success = req.flash('success'); 
+    app.locals.message = req.flash('message');
+    app.locals.user = req.user;    
     next();
 });
 
