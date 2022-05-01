@@ -13,7 +13,7 @@ body {
 }
 
 .navbar {
-    background: black !important;
+    background: #180048 !important;
 }
 
 .nav-link {
@@ -47,3 +47,31 @@ body {
       font-size: 5.5rem;
     }
   }
+
+.btn-primary {
+    background: #180048 !important;
+    border: none !important;
+    border-radius: 50 !important;
+    color: #fff !important;
+    /* font-size: 1.5rem !important;
+    font-weight: bold !important; */
+    /* padding: 1rem 3rem !important; */
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-success{
+    background: #180048 !important;
+    border: none !important;
+    border-radius: 50 !important;
+    color: #fff !important;
+    /* font-size: 1.5rem !important;
+    font-weight: bold !important; */
+    /* padding: 1rem 3rem !important; */
+    transition: all 0.3s ease-in-out;
+}
+
+.title{
+    font-size: 2rem;
+    font-weight: bold;
+    color: #180048;
+}
