@@ -11,7 +11,7 @@ const {isLoggedIn} = require('../lib/auth');
 //Ruta a la página add 
 router.get('/add', isLoggedIn, (req, res) => {
     //Devuelve lo siguiente:
-    res.render('links/add');
+    res.render('entrance/add');
 });
 
 router.post('/add', isLoggedIn, async (req, res) => {
@@ -27,13 +27,13 @@ router.post('/add', isLoggedIn, async (req, res) => {
     await pool.query('INSERT INTO links set ?', [newLink]);
     //Utilizo flash para enviar mensaje, flash tiene dos parámetros (nombre y valor)
     req.flash('success', 'Vehículo ingresado correctamente');
-    res.redirect('/links');
+    res.redirect('/entrance');
 });
 
 router.get('/', isLoggedIn, async (req, res) => {
     const links = await pool.query('SELECT * FROM links WHERE user_id = ?', [req.user.id]);
     //Renderiza la página links/list con el objeto links
-    res.render('links/list', {links});
+    res.render('entrance/list', {links});
 });  
 
 //Ruta de eliminar link
@@ -41,14 +41,14 @@ router.get('/delete/:id', isLoggedIn, async (req, res) => {
     const { id } = req.params;
     await pool.query('DELETE FROM links WHERE ID = ?', [id]);
     req.flash('success','Se registró la salida del vehículo correctamente');
-    res.redirect('/links');
+    res.redirect('/entrance');
 });
 
 //Ruta de editar link
 router.get('/edit/:id', isLoggedIn, async(req,res) =>{
     const { id } = req.params;
     const links = await pool.query('SELECT * FROM links WHERE id = ?', [id]);
-    res.render('links/edit', {link: links[0]});  
+    res.render('entrance/edit', {link: links[0]});  
 });
 
 //Creo una ruta para editar cada link
@@ -62,7 +62,7 @@ router.post('/edit/:id', isLoggedIn, async (req, res) => {
     };
     await pool.query('UPDATE links set ? WHERE id = ?', [newLink, id]);
     req.flash('success','Vehículo actualizado correctamente'); 
-    res.redirect('/links');
+    res.redirect('/entrance');
 });
 
 module.exports = router;
