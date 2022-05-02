@@ -26,7 +26,7 @@ router.post('/add', isLoggedIn, async (req, res) => {
     };
     await pool.query('INSERT INTO links set ?', [newLink]);
     //Utilizo flash para enviar mensaje, flash tiene dos parámetros (nombre y valor)
-    req.flash('success', 'Link saved successfully');
+    req.flash('success', 'Vehículo ingresado correctamente');
     res.redirect('/links');
 });
 
@@ -40,7 +40,7 @@ router.get('/', isLoggedIn, async (req, res) => {
 router.get('/delete/:id', isLoggedIn, async (req, res) => {
     const { id } = req.params;
     await pool.query('DELETE FROM links WHERE ID = ?', [id]);
-    req.flash('success','Link Removed successfully');
+    req.flash('success','Se registró la salida del vehículo correctamente');
     res.redirect('/links');
 });
 
@@ -61,7 +61,7 @@ router.post('/edit/:id', isLoggedIn, async (req, res) => {
         url
     };
     await pool.query('UPDATE links set ? WHERE id = ?', [newLink, id]);
-    req.flash('success','Link Updated Successfully'); 
+    req.flash('success','Vehículo actualizado correctamente'); 
     res.redirect('/links');
 });
 
