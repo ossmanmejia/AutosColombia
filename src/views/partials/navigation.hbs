@@ -7,15 +7,11 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
       {{#if user}}
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Registro de vehículos
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/links">Vehículos ingresados</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="/links/add">Ingresar un vehículo</a>
-          </div>
+        <li class="nav-item">
+            <a href="/links" class="nav-link">Vehículos ingresados</a>
+        </li>
+        <li class="nav-item">
+            <a href="/links/add" class="nav-link">Ingresar un vehículo</a>
         </li>
         <li class="nav-item">
             <a href="/profile" class="nav-link">Perfil</a>
