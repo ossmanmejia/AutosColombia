@@ -16,13 +16,11 @@ router.get('/add', isLoggedIn, (req, res) => {
 
 router.post('/add', isLoggedIn, async (req, res) => {
     //Recoge los datos del formulario y guarda en un objeto nuevo
-    const {title,  url, description} = req.body;
+    const {license_plate, propietario} = req.body;
     //El objeto nuevo se llama newLink
     const newLink = {
-        title,
-        url,
-        description,
-        user_id: req.user.id
+        license_plate,
+        propietario
     };
     await pool.query('INSERT INTO links set ?', [newLink]);
     //Utilizo flash para enviar mensaje, flash tiene dos parámetros (nombre y valor)
@@ -31,7 +29,7 @@ router.post('/add', isLoggedIn, async (req, res) => {
 });
 
 router.get('/', isLoggedIn, async (req, res) => {
-    const links = await pool.query('SELECT * FROM links WHERE user_id = ?', [req.user.id]);
+    const links = await pool.query('SELECT * FROM links');
     //Renderiza la página links/list con el objeto links
     res.render('entrance/list', {links});
 });  
@@ -54,11 +52,10 @@ router.get('/edit/:id', isLoggedIn, async(req,res) =>{
 //Creo una ruta para editar cada link
 router.post('/edit/:id', isLoggedIn, async (req, res) => {
     const { id } = req.params;
-    const { title, description, url } = req.body;
+    const { license_plate, propietario } = req.body;
     const newLink = {
-        title,
-        description,
-        url
+        license_plate,
+        propietario
     };
     await pool.query('UPDATE links set ? WHERE id = ?', [newLink, id]);
     req.flash('success','Vehículo actualizado correctamente'); 

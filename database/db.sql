@@ -2,6 +2,7 @@
 CREATE DATABASE database_links;
 --SE USA LA BASE DE DATOS
 USE database_links;
+
 --SE CREA LA TABLA USUARIOS
 CREATE TABLE users (
     id INT(11) NOT NULL,
@@ -9,6 +10,7 @@ CREATE TABLE users (
     password VARCHAR(60) NOT NULL,
     fullname VARCHAR(100) NOT NULL
 );
+
 --SE MODIFICA LA TABLA USUARIOS AGREGANDO UNA LLAVES PRIMARIA A ID
 ALTER TABLE users
     ADD PRIMARY KEY (id);
@@ -18,16 +20,17 @@ ALTER TABLE users
 --SE DESCRIPCIONA LA TABLA USUARIOS
 DESCRIBE users;
 
+
 --SE CREA LA TABLA LINKS
 CREATE TABLE links (
     id INT(11) NOT NULL,
-    title VARCHAR(150) NOT NULL,
-    url VARCHAR(255) NOT NULL,
-    description TEXT,
-    user_id INT(11),
+    license_plate VARCHAR(150) NOT NULL,
+    propietario VARCHAR(255) NOT NULL,
+    novedades TEXT,
+    fecha_ingreso DATE,
+    fecha_salida DATE,
     --Campo creado para guardar la fecha de creacion del link de forma automatica
-    create_at timestamp NOT NULL DEFAULT current_timestamp,
-    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
+    create_at timestamp NOT NULL DEFAULT current_timestamp
 );
 
 ALTER TABLE links
@@ -38,24 +41,3 @@ ALTER TABLE links
 
 DESCRIBE links;
 
---SE CREA LA TABLA CLIENTS
-CREATE TABLE clients (
-    id INT(11) NOT NULL,
-    fullname VARCHAR(150) NOT NULL,
-    license_plate VARCHAR(150) NOT NULL,
-    brand VARCHAR(150) NOT NULL,
-    model VARCHAR(150) NOT NULL,
-    year INT(11) NOT NULL
-);
-
-ALTER TABLE clients
-    ADD PRIMARY KEY (id);
-
-ALTER TABLE clients
-    MODIFY id INT(11) NOT NULL AUTO_INCREMENT;
-
-ALTER TABLE clients
-    ADD username VARCHAR(150) NOT NULL;
-
-ALTER TABLE clients
-    ADD password VARCHAR(150) NOT NULL;
