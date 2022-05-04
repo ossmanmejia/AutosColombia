@@ -2,6 +2,7 @@ const express = require('express');
 const res = require('express/lib/response');
 const router = express.Router();
 
+
 //importa conexión a la base de datos a través de pool
 const pool = require('../database');
 
@@ -38,7 +39,10 @@ router.get('/', isLoggedIn, async (req, res) => {
 router.get('/delete/:id', isLoggedIn, async (req, res) => {
     const { id } = req.params;
     await pool.query('DELETE FROM links WHERE ID = ?', [id]);
-    req.flash('success','Se registró la salida del vehículo correctamente');  
+    req.flash('success','Se registró la salida del vehículo correctamente'); 
+    /* const salidaVehiculo = {
+         fecha_salida 
+    }; */
     res.redirect('/entrance');
 });
 
@@ -52,10 +56,11 @@ router.get('/edit/:id', isLoggedIn, async(req,res) =>{
 //Creo una ruta para editar cada link
 router.post('/edit/:id', isLoggedIn, async (req, res) => {
     const { id } = req.params;
-    const { license_plate, propietario } = req.body;
+    const { license_plate, propietario, novedades } = req.body;
     const newLink = {
         license_plate,
-        propietario
+        propietario,
+        novedades
     };
     await pool.query('UPDATE links set ? WHERE id = ?', [newLink, id]);
     req.flash('success','Vehículo actualizado correctamente'); 

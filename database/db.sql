@@ -17,8 +17,8 @@ ALTER TABLE users
 --SE MODIFICA LA TABLA USUARIOS AGREGANDO UN AUTOINCREMENTO A ID
 ALTER TABLE users
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT;
---SE DESCRIPCIONA LA TABLA USUARIOS
-DESCRIBE users;
+
+
 
 
 --SE CREA LA TABLA LINKS
@@ -27,10 +27,9 @@ CREATE TABLE links (
     license_plate VARCHAR(150) NOT NULL,
     propietario VARCHAR(255) NOT NULL,
     novedades TEXT,
-    fecha_ingreso DATE,
-    fecha_salida DATE,
-    --Campo creado para guardar la fecha de creacion del link de forma automatica
-    create_at timestamp NOT NULL DEFAULT current_timestamp
+      --Campos creados para guardar la fecha de ingreso del vehiculo de forma automatica
+    create_at timestamp NOT NULL DEFAULT current_timestamp,
+    fecha_entrada timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP    
 );
 
 ALTER TABLE links
@@ -39,5 +38,4 @@ ALTER TABLE links
 ALTER TABLE links
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT;
 
-DESCRIBE links;
 
