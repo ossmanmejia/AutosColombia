@@ -8,15 +8,15 @@
     <ul class="navbar-nav ml-auto">
         {{#if user}}
         <li class="nav-item">
+            <a href="/entrance/" class="nav-link">Ver Parqueadero</a>
+        </li>
+        <li class="nav-item">
+            <a href="/entrance/add" class="nav-link">Ingresar vehículos</a>
+        </li>
+        <li class="nav-item">
             <a href="/logout" class="nav-link">Cerrar sesión</a>
         </li>
       {{else}}
-       <li class="nav-item">
-            <a href="/signinC" class="nav-link">Iniciar sesión</a>
-        </li>
-        <li class="nav-item">
-            <a href="/clients/signupC" class="nav-link">Registrarse</a>
-        </li>
         <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Admin

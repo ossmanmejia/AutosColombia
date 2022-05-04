@@ -79,7 +79,7 @@ app.use((req, res, next) => {
 app.use (require('./routes/index.js'));
 app.use (require('./routes/authentication.js'));
 app.use ('/entrance',require('./routes/entrance.js'));
-app.use ('/clients',require('./routes/clients.js'));
+
 
 //Archivos públicos
     // se definen los archivos que se van a usar en la app
