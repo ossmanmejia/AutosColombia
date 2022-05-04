@@ -16,13 +16,12 @@ const MySQLStore = require('express-mysql-session');
 const {database} = require('./keys');
 //Importo el modulo passport para poder utilizarlo
 const passport = require('passport');
-const passportC = require('passport');
 
 // Initialize the app
 const app = express();
 // Inicializa passport
 require('./lib/passport');
-require('./lib/passportC');
+
 
 //configuración de la app
 
@@ -61,10 +60,7 @@ app.use(express.json());
 app.use(passport.initialize());
     //Se inicia session para poder usar passport
 app.use(passport.session());
-    //Se inicializa passport para poder usarlo
-    app.use(passportC.initialize());
-    //Se inicia session para poder usar passport
-app.use(passportC.session());
+
 
 // Variables globales
     // Variables que toda la app va a tener y se usan en todas las rutas
@@ -82,7 +78,6 @@ app.use((req, res, next) => {
     // se definen las urls que se van a usar en la app
 app.use (require('./routes/index.js'));
 app.use (require('./routes/authentication.js'));
-app.use (require('./routes/authenticationC.js'));
 app.use ('/entrance',require('./routes/entrance.js'));
 app.use ('/clients',require('./routes/clients.js'));
 
