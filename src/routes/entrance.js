@@ -38,7 +38,7 @@ router.get('/', isLoggedIn, async (req, res) => {
 router.get('/delete/:id', isLoggedIn, async (req, res) => {
     const { id } = req.params;
     await pool.query('DELETE FROM links WHERE ID = ?', [id]);
-    req.flash('success','Se registró la salida del vehículo correctamente');
+    req.flash('success','Se registró la salida del vehículo correctamente');  
     res.redirect('/entrance');
 });
 
@@ -61,5 +61,7 @@ router.post('/edit/:id', isLoggedIn, async (req, res) => {
     req.flash('success','Vehículo actualizado correctamente'); 
     res.redirect('/entrance');
 });
+
+
 
 module.exports = router;

@@ -8,7 +8,7 @@ const helpers = {};
 
 //Creo un método del objeto helpers
 helpers.timeago = (timestamp) => {
-    return format(timestamp);
+    return (timestamp);
 };
 
 //Exporto el objeto helpers

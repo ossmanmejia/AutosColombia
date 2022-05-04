@@ -4,15 +4,16 @@
         <div class="col-md-3">
             <div class="card text-center">
                 <div class="card-body">
-                    <a href="{{url}}" target="_blank">
+                       <h2 class="card-title">
+                           Placa:</h2>
                         <h3 class="card-title text-uppercase">
                             {{license_plate}}
                         </h3>
-                    </a>
                     <p class="m-2">
-                        {{propietario}}
-                    </p>
-                    <p>{{timeago create_at}}</p>
+                     <p>Propietario: {{propietario}}</p>
+                    </p>                 
+                    <p>Fecha y hora de ingreso: {{timeago create_at}}</p>
+                   
                      <a href="/entrance/edit/{{id}}" class="btn btn-secondary btn-block">Registrar novedad</a>
                     <a href="/entrance/delete/{{id}}" class="btn btn-danger btn-block">Dar salida</a>
                 </div>
