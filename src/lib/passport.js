@@ -16,7 +16,7 @@ passport.use('local.signin', new LocalStrategy({
     passReqToCallback: true
 }, async (req, username, password, done) => {
     //Se busca el usuario en la base de datos
-    const rows = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
+    const rows = await pool.query('SELECT * FROM admins WHERE username = ?', [username]);
     if (rows.length > 0) {
         const user = rows[0];
         //Se valida la contraseña
@@ -48,20 +48,20 @@ passport.use('local.signup', new LocalStrategy({
     //Se cifra la contraseña
     newUser.password = await helpers.encryptPassword(password);
     //Almaceno el usuario en la base de datos
-    const result = await pool.query('INSERT INTO users SET ?', [newUser]);
+    const result = await pool.query('INSERT INTO admins SET ?', [newUser]);
     //Se retorna el id del usuario
-    newUser.id = result.insertId;
+    newUser.admin_id = result.insertId;
     //Retorna el newUser para usar en una sesion
     return done(null, newUser);
 }));
 
 //Serializar el usuario para almacenarlo en la sesion
 passport.serializeUser((user, done) => {
-    done(null, user.id);
+    done(null, user.admin_id);
 });
 
 //Deserializar el usuario para recuperarlo de la sesion
 passport.deserializeUser(async (id, done) => {
-    const rows = await pool.query('SELECT * FROM users WHERE id = ?', [id]);
+    const rows = await pool.query('SELECT * FROM admins WHERE admin_id = ?', [id]);
     done(null, rows[0]);
 });

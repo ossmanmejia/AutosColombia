@@ -7,6 +7,17 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
         {{#if user}}
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Clientes
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/clients/addclient">Registrar</a>
+          <a class="dropdown-item" href="/clients">Listado de clientes</a>
+        </div>
+        
+        </li>
         <li class="nav-item">
             <a href="/entrance/" class="nav-link">Ver Parqueadero</a>
         </li>
