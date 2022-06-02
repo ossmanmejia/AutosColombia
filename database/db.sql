@@ -56,8 +56,8 @@ CREATE TABLE vehiculos (
     modelo VARCHAR(255) NOT NULL,
     color VARCHAR(255) NOT NULL,
     placa VARCHAR(255) NOT NULL,
-    cliente_id INT(11) NOT NULL,
-    CONSTRAINT fk_cliente_id FOREIGN KEY (cliente_id) REFERENCES clientes(cliente_id),
+    cliente_idV INT(11) NOT NULL,
+    CONSTRAINT fk_cliente_id FOREIGN KEY (cliente_idV) REFERENCES clientes(cliente_id),
     fecha_afiliacion timestamp NOT NULL DEFAULT current_timestamp
 );
 
@@ -71,15 +71,15 @@ ALTER TABLE vehiculos
 --SE CREA LA TABLA Entrada_vehiculo
 CREATE TABLE entrada_vehiculo (
     id INT(11) NOT NULL,
-    license_plate_id INT(150) NOT NULL,
+    license_plate_entrada VARCHAR(150) NOT NULL,
     novedades TEXT,
-    create_at timestamp NOT NULL DEFAULT current_timestamp,
-    fecha_entrada timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,    
-    CONSTRAINT fk_license_plate_id FOREIGN KEY (license_plate_id) REFERENCES vehiculos(license_plate)
+    fecha_entrada timestamp NOT NULL DEFAULT current_timestamp,
+    CONSTRAINT fk_license_plate_id FOREIGN KEY (license_plate_entrada) REFERENCES vehiculos(vehiculos_id)
 
 );
 
 ALTER TABLE entrada_vehiculo
+
     ADD PRIMARY KEY (id);
 
 ALTER TABLE entrada_vehiculo
@@ -87,17 +87,16 @@ ALTER TABLE entrada_vehiculo
 
 --SE CREA LA TABLA DE SALIDA DE VEHICULOS  
 
-CREATE TABLE salida_vehiculos (
-    id INT(11) NOT NULL,
-    slicense_plate_id INT(150) NOT NULL,
-    novedades TEXT,
-    CONSTRAINT fk_slicense_plate_id FOREIGN KEY (slicense_plate_id) REFERENCES vehiculos(license_plate),
-    create_at timestamp NOT NULL DEFAULT current_timestamp,
-    fecha_salida timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
+CREATE TABLE salida_vehiculo ( 
+    salida_id INT(11) NOT NULL, 
+    license_plate_salida INT(150) NOT NULL, 
+    novedades_salida TEXT, 
+    fecha_salida timestamp NOT NULL DEFAULT current_timestamp, 
+    CONSTRAINT fk_license_plate_idS FOREIGN KEY (license_plate_salida) REFERENCES vehiculos(vehiculos_id) );
 
 ALTER TABLE salida_vehiculos
-    ADD PRIMARY KEY (id);
+    ADD PRIMARY KEY (salida_id);
 
 ALTER TABLE salida_vehiculos
-    MODIFY id INT(11) NOT NULL AUTO_INCREMENT;
+    MODIFY salida_id INT(11) NOT NULL AUTO_INCREMENT;
+

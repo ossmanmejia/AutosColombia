@@ -1,19 +1,33 @@
+<div class ="container p-4">
+    <div class="col-md-4 mx-auto">
+            <div class="card card-body text-center">
+                 <p>Cantidad de celdas ocupadas</p>
+                 {{cantidad}}
+                   
+                   
+            </div>
+        </div>
+</div>
 <div class="container p-4">
+    <h2 class="title">Vehículos</h2>
     <div class="row">
         {{#each links}}
+       
         <div class="col-md-3">
             <div class="card text-center">
                 <div class="card-body">
                        <h2 class="card-title">
                            Placa:</h2>
                         <h3 class="card-title text-uppercase">
-                            {{license_plate}}
+                            {{license_plate_entrada}}
                         </h3>
                     <p class="m-2">
-                     <p>Propietario: {{propietario}}</p>
+                     <p>Propietario: {{fullname}}</p>
                     </p>                 
                     <p>Fecha y hora de ingreso: {{fecha_entrada}}</p>
+                    <p>Número de celda: {{celda_id}}</p>
                    <p>Tiempo en parqueadero: {{timeago create_at}}</p>
+                   <p>Novedades: {{novedades}}</p>
                      <a href="/entrance/edit/{{id}}" class="btn btn-secondary btn-block">Registrar novedad</a>
                     <a href="/entrance/delete/{{id}}" class="btn btn-danger btn-block">Dar salida</a>
                 </div>
@@ -26,6 +40,7 @@
                  <a href="/entrance/add">Ingresar un vehículo</a>
             </div>
         </div>
+         
         {{/each}}
     </div>
 </div>

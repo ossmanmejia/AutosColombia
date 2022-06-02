@@ -35,10 +35,9 @@ router.post('/addclient', isLoggedIn, async (req, res) => {
         color, 
         cliente_idV: nuevoCliente.insertId
     };
-
-    await pool.query('INSERT INTO vehiculos set ?', [newVehicle]);
-    //Utilizo flash para enviar mensaje, flash tiene dos parámetros (nombre y valor)
-    req.flash('success', 'Usuario registrado correctamente');
+    let nuevoVehiculo = await pool.query('INSERT INTO vehiculos set ?', [newVehicle]);
+       //Utilizo flash para enviar mensaje, flash tiene dos parámetros (nombre y valor)
+    req.flash('success', 'Cliente registrado correctamente');
     res.redirect('/clients');
     console.log(nuevoCliente);
 
@@ -59,42 +58,45 @@ router.get('/delete/:cliente_id', isLoggedIn, async (req, res) => {
     res.redirect('/clients');
 });
 
+//Ruta de editar link
+router.get('/edit/:cliente_id', isLoggedIn, async(req,res) =>{
+    const { cliente_id } = req.params;
+    var result = null, result2 = null;
+    const EditClients= await pool.query('SELECT * FROM clientes WHERE cliente_id = ?', [cliente_id], function(err, rows, fields) {
+        if (err) throw err;
+        result = rows;
+        const EditVehicles = pool.query('SELECT * FROM vehiculos WHERE cliente_idV = ?', [cliente_id], function(err, rows, fields) {
+            if (err) throw err;
+            result2 = rows;
+            res.render('clients/editclient', {client: result[0], vehicle: result2[0]});
+        });
+    });
+});
+
 
 //Creo una ruta para editar cada link
 router.post('/edit/:cliente_id', isLoggedIn, async (req, res) => {
     const { cliente_id } = req.params;
     const { fullname, telefono, direccion, email } = req.body;
-    const newClient = {
+    const EditClients = {
         fullname,
         telefono,
         direccion,
         email
     };
-    let edicionCliente = await pool.query('UPDATE clientes set ? WHERE cliente_id = ?', [newClient, cliente_id]);
+    await pool.query('UPDATE clientes set ? WHERE cliente_id = ?', [EditClients, cliente_id]);
+    console.log(EditClients);
     const {license_plate, marca, modelo, color} = req.body;
     const EditVehicles = {
         license_plate,
         marca,
         modelo,
-        color, 
-        cliente_idV: edicionCliente.updateId
+        color
     };
     await pool.query('UPDATE vehiculos set ? WHERE cliente_idV = ?', [EditVehicles, cliente_id]);
-    req.flash('success','Vehículo actualizado correctamente'); 
+    console.log(EditVehicles);
+    req.flash('success','Cliente actualizado correctamente'); 
     res.redirect('/clients');
 });
-
-//Ruta de editar link
-router.get('/edit/:cliente_id', isLoggedIn, async(req,res) =>{
-    const { cliente_id } = req.params;
-    const EditClients = await pool.query('SELECT * FROM clientes WHERE cliente_id = ?', [cliente_id]);
-    const EditVehicles = await pool.query('SELECT * FROM vehiculos WHERE cliente_idV = ?', [cliente_id]);
-    res.render('clients/editclient', {client: EditClients[0]}); 
-
-});
-
-
-
-
 
 module.exports = router;

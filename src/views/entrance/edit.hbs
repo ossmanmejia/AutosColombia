@@ -3,15 +3,10 @@
         <div class="col-md-4 mx-auto">
             <div class="card">
                 <div class="card-body">
+                    <h2 class="title">Registrar novedad</h2>
+                    <h3>Vehículo: {{link.license_plate_entrada}}</h3>
                     <form action="/entrance/edit/{{link.id}}" method="POST">
-                        <div class="form-group">
-                            <input type="text" value="{{link.license_plate}}" class="form-control" name="license_plate" placeholder="Placa" autofocus>
-                        </div>
-                      
-                        <div class="form-group">
-                            <input type="text" value="{{link.propietario}}" name="propietario" class="form-control" placeholder="Propietario">
-                        </div>
-                       
+                              
                         <div class="form-group">
                             <textarea name="novedades" rows="2" class="form-control" placeholder="Registrar novedad">{{link.novedades}}</textarea>
                         </div>
