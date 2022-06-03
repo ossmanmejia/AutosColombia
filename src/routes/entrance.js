@@ -49,15 +49,24 @@ router.get('/', isLoggedIn, async (req, res) => {
     const cantidadceldas = await pool.query('SELECT COUNT(estado) FROM celdas WHERE estado = "Ocupado"');
     //Renderiza la página links/list con el objeto links
     let cantidad = cantidadceldas[0]['COUNT(estado)'];
-    res.render('entrance/list', {links, cantidad});
+    let celdastotales = 30;
+    let celdasdisponibles = celdastotales - cantidad;
+    res.render('entrance/list', {links, cantidad, celdasdisponibles});
 });  
 
 //Ruta de registrar salida vehículos
 router.get('/delete/:id', isLoggedIn, async (req, res) => {
-    const { id } = req.params;
+    const { id }    = req.params;
+    const licenseEntrada = await pool.query ('SELECT * FROM entrada_vehiculo INNER JOIN vehiculos ON entrada_vehiculo.id_vehiculo_entrada = vehiculos.vehiculos_id');       
+    const salida = {
+        novedades_salida: 'Salida',
+        license_plate_salida: licenseEntrada[0].vehiculos_id
+    }
+    await pool.query('INSERT INTO salida_vehiculo set ?', [salida]);
     await pool.query('DELETE FROM entrada_vehiculo WHERE ID = ?', [id]);
     req.flash('success','Se registró correctamente la salida del vehículo'); 
     res.redirect('/entrance');
+
 
 });
 
