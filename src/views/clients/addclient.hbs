@@ -6,28 +6,28 @@
                     <h2 class="title">Registrar nuevo cliente</h2>
                     <form action="/clients/addclient" method="POST">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="fullname" placeholder="Nombre Completo" autofocus>
+                            <input type="text" class="form-control" name="fullname" placeholder="Nombre Completo" required autofocus>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="telefono" class="form-control" placeholder="Teléfono">
+                            <input type="number" name="telefono" class="form-control" placeholder="Teléfono" required>
                         </div>                                
                         <div class="form-group">
-                            <input type="text" name="direccion" class="form-control" placeholder="Dirección">
+                            <input type="text" name="direccion" class="form-control" placeholder="Dirección" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="email" class="form-control" placeholder="Correo Electrónico">
+                            <input type="email" name="email" class="form-control" placeholder="Correo Electrónico" required>
                         </div>   
                         <div class="form-group">
-                            <input type="text" name="license_plate" class="form-control" placeholder="Placa del vehículo">
+                            <input type="text" name="license_plate" class="form-control" placeholder="Placa del vehículo" required>
                         </div>   
                         <div class="form-group">
-                            <input type="text" name="marca" class="form-control" placeholder="Marca">
+                            <input type="text" name="marca" class="form-control" placeholder="Marca" required>
                         </div>   
                         <div class="form-group">
-                            <input type="text" name="modelo" class="form-control" placeholder="Modelo">
+                            <input type="text" name="modelo" class="form-control" placeholder="Modelo" required>
                         </div>   
                         <div class="form-group">
-                            <input type="text" name="color" class="form-control" placeholder="Color">
+                            <input type="text" name="color" class="form-control" placeholder="Color" required>
                         </div>   
                         <div class="form-group">
                             <button class="btn btn-success btn-block">Guardar</button>     

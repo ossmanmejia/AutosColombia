@@ -6,30 +6,30 @@
                     <form action="/clients/edit/{{client.cliente_id}}" method="POST">
 
                         <div class="form-group">
-                            <input type="text" value="{{client.fullname}}" class="form-control" name="fullname" placeholder="Placa" autofocus>
+                            <input type="text" value="{{client.fullname}}" class="form-control" name="fullname" placeholder="Placa" required autofocus>
                         </div>
                       
                         <div class="form-group">
-                            <input type="text" value="{{client.telefono}}" name="telefono" class="form-control" placeholder="Teléfono">
+                            <input type="text" value="{{client.telefono}}" name="telefono" class="form-control" placeholder="Teléfono" required>
                         </div>
                        
                         <div class="form-group">
-                            <input type="text" value="{{client.direccion}}" name="direccion" class="form-control" placeholder="Dirección">
+                            <input type="text" value="{{client.direccion}}" name="direccion" class="form-control" placeholder="Dirección" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" value="{{client.email}}" name="email" class="form-control" placeholder="Email">
+                            <input type="text" value="{{client.email}}" name="email" class="form-control" placeholder="Email" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" value="{{vehicle.license_plate}}" name="license_plate" class="form-control" placeholder="Placa">
+                            <input type="text" value="{{vehicle.license_plate}}" name="license_plate" class="form-control" placeholder="Placa" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" value="{{vehicle.marca}}" name="marca" class="form-control" placeholder="Marca">
+                            <input type="text" value="{{vehicle.marca}}" name="marca" class="form-control" placeholder="Marca" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" value="{{vehicle.modelo}}" name="modelo" class="form-control" placeholder="Modelo">
+                            <input type="text" value="{{vehicle.modelo}}" name="modelo" class="form-control" placeholder="Modelo" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" value="{{vehicle.color}}" name="color" class="form-control" placeholder="Color">
+                            <input type="text" value="{{vehicle.color}}" name="color" class="form-control" placeholder="Color" required>
                         </div>
                       
                         <div class="form-group">

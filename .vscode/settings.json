@@ -1,21 +1,29 @@
 {
     "cSpell.words": [
+        "cantidadceldas",
         "card",
+        "celdasdisponibles",
+        "celdastotales",
         "danger",
         "dismiss",
         "dismissible",
         "divider",
+        "entrance",
         "Fonts",
         "layouts",
+        "Logged",
         "middlewares",
         "mysqlexpress",
         "partials",
+        "plate",
         "Renderiza",
         "resave",
         "Something",
         "successfully",
         "timeago",
         "toggler",
-        "Uninitialized"
+        "Uninitialized",
+        "vehiculo",
+        "vehiculos"
     ]
 }
