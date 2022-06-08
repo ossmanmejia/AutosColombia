@@ -29,11 +29,10 @@ router.post('/add', isLoggedIn, async (req, res) => {
             novedades,
             id_vehiculo_entrada: nuevoEntrada[0].vehiculos_id
         };  
-        let entradaVehiculo = pool.query('INSERT INTO entrada_vehiculo set ?' , [newLink]);
+        await pool.query('INSERT INTO entrada_vehiculo set ?' , [newLink]);
         const newCelda = {
             estado: 'Ocupado',
             vehiculo_celda: nuevoEntrada[0].vehiculos_id
-
         }
         await pool.query('INSERT INTO celdas set ?', [newCelda]);
         req.flash('success', 'Entrada registrada correctamente');
