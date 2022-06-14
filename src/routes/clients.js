@@ -1,3 +1,4 @@
+const { request } = require('express');
 const express = require('express');
 const res = require('express/lib/response');
 const router = express.Router();
@@ -8,6 +9,7 @@ const pool = require('../database');
 
 //Se importa el método para saber si el usuario está autenticado
 const {isLoggedIn} = require('../lib/auth');
+const { timeago } = require('../lib/handlebars');
 
 
 //Ruta a la página add 
@@ -35,20 +37,39 @@ router.post('/addclient', isLoggedIn, async (req, res) => {
         color, 
         cliente_idV: nuevoCliente.insertId
     };
-    let nuevoVehiculo = await pool.query('INSERT INTO vehiculos set ?', [newVehicle]);
+    await pool.query('INSERT INTO vehiculos set ?', [newVehicle]);
+    const {estado_pago} = req.body;
+    var newPayment;
+    if (estado_pago == 'Si') {
+        newPayment = 'Pago aprobado';
+        const newPaymentStatus = {
+            estado_pago: newPayment,
+            cliente_idP: nuevoCliente.insertId,  
+        };
+        await pool.query('INSERT INTO pagos set ?', [newPaymentStatus]);
+        const fechafinpago = await pool.query('SELECT fecha_pago FROM pagos WHERE cliente_idP = ?', [nuevoCliente.insertId]);
+        let fechafinpago2 = (fechafinpago[0].fecha_pago);
+        await pool.query('UPDATE pagos SET fin_pago = ? WHERE cliente_idP = ?', [fechafinpago2, nuevoCliente.insertId]);
+        await pool.query('UPDATE pagos SET fin_pago = Date_add(fin_pago, INTERVAL 1 MONTH) WHERE cliente_idP = ?', [nuevoCliente.insertId]);
+        console.log(fechafinpago);
+        console.log(fechafinpago2);
        //Utilizo flash para enviar mensaje, flash tiene dos parámetros (nombre y valor)
-    req.flash('success', 'Cliente registrado correctamente');
-    res.redirect('/clients');
-    console.log(nuevoCliente);
-
+        req.flash('success', 'Cliente registrado correctamente');
+        res.redirect('/clients');
+    } else {
+        newPayment = 'Pago no aprobado';
+        req.flash('success', 'Cliente no puede ser registrado sin pagar mensualidad');
+        res.redirect('/clients/addclient');
+    };
+  
 });
 
 router.get('/', isLoggedIn, async (req, res) => {
-    const clientes = await pool.query('SELECT * FROM clientes INNER JOIN vehiculos ON cliente_id = vehiculos.cliente_idV');
-
+    const clientes = await pool.query('SELECT * FROM clientes INNER JOIN vehiculos ON cliente_id = vehiculos.cliente_idV INNER JOIN pagos ON cliente_id = pagos.cliente_idP');
     //Renderiza la página 
     res.render('clients/listclient', {clientes});
 });  
+
 
 
 router.get('/delete/:cliente_id', isLoggedIn, async (req, res) => {
@@ -98,5 +119,14 @@ router.post('/edit/:cliente_id', isLoggedIn, async (req, res) => {
     req.flash('success','Cliente actualizado correctamente'); 
     res.redirect('/clients');
 });
+
+
+//Ruta para ver pagos
+
+router.get('/pagos', isLoggedIn, async (req, res) => {
+    const pagos = await pool.query('SELECT * FROM clientes INNER JOIN vehiculos ON cliente_id = vehiculos.cliente_idV INNER JOIN pagos ON cliente_id = pagos.cliente_idP');
+    //Renderiza la página 
+    res.render('clients/pagos', {pagos});
+});  
 
 module.exports = router;

@@ -100,3 +100,16 @@ ALTER TABLE salida_vehiculos
 ALTER TABLE salida_vehiculos
     MODIFY salida_id INT(11) NOT NULL AUTO_INCREMENT;
 
+--SE CREA LA TABLA DE PAGOS
+CREATE TABLE pagos ( 
+    pago_id INT (11) NOT NULL, 
+    estado_pago VARCHAR (100) NOT NULL, 
+    cliente_idP INT (11) NOT NULL, 
+    CONSTRAINT fkP_cliente_id FOREIGN KEY (cliente_idP) REFERENCES clientes (cliente_id), 
+    fecha_pago timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP );
+
+    ALTER TABLE pagos
+    ADD PRIMARY KEY (pago_id);
+
+    ALTER TABLE pagos
+    MODIFY pago_id INT(11) NOT NULL AUTO_INCREMENT;

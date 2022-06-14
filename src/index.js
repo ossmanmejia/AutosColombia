@@ -17,6 +17,7 @@ const {database} = require('./keys');
 //Importo el modulo passport para poder utilizarlo
 const passport = require('passport');
 
+
 // Initialize the app
 const app = express();
 // Inicializa passport
@@ -60,6 +61,7 @@ app.use(express.json());
 app.use(passport.initialize());
     //Se inicia session para poder usar passport
 app.use(passport.session());
+   
 
 
 // Variables globales

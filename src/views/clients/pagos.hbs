@@ -1,0 +1,36 @@
+<div class="container p-4">
+        <h2 class="title">Estado de pagos</h2>
+
+    <div class="row">
+        {{#each pagos}}
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                       <h2 class="card-title">
+                           Placa:</h2>
+                        <h3 class="card-title text-uppercase">
+                            {{license_plate}}
+                        </h3>
+                    <p class="m-2">
+                     <p>Propietario: {{fullname}}</p>
+                    </p>                 
+                   <p>Fecha de afiliación: {{fecha_afiliacion}}</p>
+                     <p>Fecha de finalización de mensualidad: {{fin_pago}}</p>
+                     {{!-- <a href="/clients/edit/{{cliente_id}}" class="btn btn-secondary btn-block">Editar cliente</a>
+                    <a href="/clients/delete/{{cliente_id}}" class="btn btn-danger btn-block">Eliminar cliente</a> --}}
+                </div>
+            </div>
+
+        </div>
+        {{else}}
+        <div class="col-md-4 mx-auto">
+            <div class="card card-body text-center">
+                 <p>No hay clientes registrados.</p>
+                 <a href="/clients/addclient">Registrar un cliente</a>
+            </div>
+        </div>
+        
+        {{/each}}
+
+    </div>
+</div>
